@@ -19,12 +19,37 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 
-app.get('/articles', function(req, res) {
+
+app.route("/articles")
+.get(function(req, res) {
     Article.find({}).exec().then(function(articles) {
         res.send(articles);
     });
-});
+})
+.post( function(req, res) {
+    const title = (req.body.title);
+    const content = (req.body.content);
+ 
+    const newArticle = new Article({
+     title: title,
+     content: content
+    });
+ 
+    (newArticle.save());
+ 
+    res.send("accepted");
+ 
+ })
+.delete( async function(req, res) {
+    try {
+        await Article.deleteMany();
+        res.send("success delete");
+    } catch (err) {
+       console.log(err);
+       res.status(500).send("Error in deletion");
+    }
 
+});
 
 
 
