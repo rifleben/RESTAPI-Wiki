@@ -21,38 +21,48 @@ app.use(express.static('public'));
 
 
 app.route("/articles")
-.get(function(req, res) {
-    Article.find({}).exec().then(function(articles) {
-        res.send(articles);
-    });
-})
-.post( function(req, res) {
-    const title = (req.body.title);
-    const content = (req.body.content);
- 
-    const newArticle = new Article({
-     title: title,
-     content: content
-    });
- 
-    (newArticle.save());
- 
-    res.send("accepted");
- 
- })
-.delete( async function(req, res) {
-    try {
-        await Article.deleteMany();
-        res.send("success delete");
-    } catch (err) {
-       console.log(err);
-       res.status(500).send("Error in deletion");
-    }
+    .get(function(req, res) {
+        Article.find({}).exec().then(function(articles) {
+            res.send(articles);
+        });
+    })
+    .post( function(req, res) {
+        const title = (req.body.title);
+        const content = (req.body.content);
+    
+        const newArticle = new Article({
+        title: title,
+        content: content
+        });
+    
+        (newArticle.save());
+    
+        res.send("accepted");
+    
+    })
+    .delete( async function(req, res) {
+        try {
+            await Article.deleteMany();
+            res.send("success delete");
+        } catch (err) {
+        console.log(err);
+        res.status(500).send("Error in deletion");
+        }
 
-});
+    });
 
 
 
 app.listen(3000, function() {
     console.log('Server started on port 3000');
 });
+
+/* 
+Next things we will be working on:
+
+Update/Delete specific article
+Get Specific Article
+(Research Express docs to do this)
+ 
+
+*/
