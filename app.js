@@ -37,7 +37,7 @@ app.route("/articles")
         title: title,
         content: content
         });
-    
+
         (newArticle.save());
     
         res.send("accepted");
@@ -53,7 +53,8 @@ app.route("/articles")
         }
 
     });
- // callback now depricated in Mongoose, use async/await instead
+ 
+// callback now depricated in Mongoose, use async/await instead
     app.route("/articles/:articleTitle")
     .get(async function(req, res) {
         try {
@@ -64,6 +65,17 @@ app.route("/articles")
             res.status(500).send("Error in getting article");
         }
     })
+    .put(async function(req, res) {
+        try {
+            const article = await Article.updateOne({title: req.params.articleTitle}, 
+                {title: req.body.title, content: req.body.content});
+            res.send("success update");
+        } catch (err) {
+            console.log(err);
+            res.status(500).send("Error in updating article");
+        }
+    });
+
     
 
 
