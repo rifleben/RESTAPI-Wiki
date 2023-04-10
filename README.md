@@ -13,7 +13,7 @@ Currently a work in progress.
 5. Run `npm start` to start the server.
 6. Open `http://localhost:3000` in your browser.
 
-## lessons learned
+## Lessons Learned
 
 I learned to work with Postman to test the API. I also picked up the Mongoose library to work with MongoDB. I also learned to use the Express framework to create a RESTful API.
 
