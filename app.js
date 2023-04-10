@@ -1,3 +1,5 @@
+//First attempt at a RESTful API using Node.js, Express, Mongoose, and MongoDB
+
 const express = require('express');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
@@ -74,10 +76,28 @@ app.route("/articles")
             console.log(err);
             res.status(500).send("Error in updating article");
         }
+    })
+    .patch(async function(req, res){
+        try {
+            const article = await Article.updateOne(
+                {title: req.params.articleTitle},
+                {$set: req.body});
+            res.send("success update");
+        } catch (err) {
+            console.log(err);
+            res.status(500).send("Error in updating article");
+        }
+    })
+
+    .delete(async function(req, res) {
+        try {
+            const article = await Article.deleteOne({title: req.params.articleTitle});
+            res.send("success delete");
+        } catch (err) {
+            console.log(err);
+            res.status(500).send("Error in deleting article");
+        }
     });
-
-    
-
 
 
 app.listen(3000, function() {
